@@ -23,6 +23,6 @@ steps:
     location: '$(location)'
     templateLocation: 'Linked artifact'
     csmFile: '$(templateFile)'
-    overrideParameters: '-storageSKU Standard_LRS'
+    overrideParameters: '-storageSKU Standard_LRS -storagePrefix azuredevops'
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
