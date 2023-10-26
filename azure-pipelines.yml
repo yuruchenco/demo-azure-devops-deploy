@@ -8,6 +8,7 @@ variables:
   resourceGroupName: 'exampleRGAzureDevOps'
   location: 'eastus'
   templateFile: './main.bicep'
+  EnvironmentType: 'BicepDemo'
 
 stages:
 
@@ -48,6 +49,7 @@ stages:
                 az deployment group what-if \
                   --resource-group $(resourceGroupName) \
                   --template-file $(templateFile) \
+                  --parameters environmentType=$(EnvironmentType)
 
 
   - stage: Deploy
