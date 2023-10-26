@@ -35,6 +35,6 @@ stages:
               location: '$(location)'
               templateLocation: 'Linked artifact'
               csmFile: '$(templateFile)'
-              overrideParameters: '-environment poc2 -hubVnetEnabled true -spokeVnetEnabled false '
+              overrideParameters: '-enviroment poc2 -hubVnetEnabled true -spokeVnetEnabled false '
               deploymentMode: 'Incremental'
               deploymentName: 'DeployPipelineTemplate'
