@@ -20,7 +20,7 @@ stages:
               location: $(deploymentDefaultLocation)
               deploymentMode: Validation
               resourceGroupName: '$(resourceGroupName)'
-              csmFile: deploy/main.bicep
+              csmFile: '$(templateFile)'
 
   - stage: Deploy
     jobs:
