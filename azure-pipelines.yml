@@ -4,14 +4,12 @@ trigger:
 name: Deploy Bicep files
 
 variables:
-  vmImageName: 'ubuntu-latest'
 
   azureServiceConnection: 'MasudaAzureServiceConnection'
   resourceGroupName: 'exampleRGAzureDevOps'
   location: 'eastus'
   templateFile: './main.bicep'
-pool:
-  vmImage: $(vmImageName)
+
 
 steps:
 - task: AzureResourceManagerTemplateDeployment@3
@@ -23,6 +21,6 @@ steps:
     location: '$(location)'
     templateLocation: 'Linked artifact'
     csmFile: '$(templateFile)'
-    overrideParameters: '-storageSKU Standard_LRS -storagePrefix azuredevops'
+    overrideParameters: '-environment poc2 -hubVnetEnabled true-spokeVnetEnabled false '
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
