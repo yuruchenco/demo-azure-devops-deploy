@@ -1,40 +1,40 @@
 trigger:
-- main
+  - main
 
 name: Deploy Bicep files
 
 variables:
-
   azureServiceConnection: 'MasudaAzureServiceConnection'
   resourceGroupName: 'exampleRGAzureDevOps'
   location: 'eastus'
   templateFile: './main.bicep'
 
-- stage: Validate
-  jobs:
-  - job: Validate
-    steps:
-      - task: AzureResourceManagerTemplateDeployment@3
-        inputs:
-          connectedServiceName: '$(azureServiceConnection)'
-          location: $(deploymentDefaultLocation)
-          deploymentMode: Validation
-          resourceGroupName: '$(resourceGroupName)'
-          csmFile: deploy/main.bicep
+stages:
+  - stage: Validate
+    jobs:
+      - job: Validate
+        steps:
+          - task: AzureResourceManagerTemplateDeployment@3
+            inputs:
+              connectedServiceName: '$(azureServiceConnection)'
+              location: $(deploymentDefaultLocation)
+              deploymentMode: Validation
+              resourceGroupName: '$(resourceGroupName)'
+              csmFile: deploy/main.bicep
 
-- stage: Deploy
-  jobs:
-  - job: Deploy
-    steps:
-    - task: AzureResourceManagerTemplateDeployment@3
-      inputs:
-        deploymentScope: 'Resource Group'
-        azureResourceManagerConnection: '$(azureServiceConnection)'
-        action: 'Create Or Update Resource Group'
-        resourceGroupName: '$(resourceGroupName)'
-        location: '$(location)'
-        templateLocation: 'Linked artifact'
-        csmFile: '$(templateFile)'
-        overrideParameters: '-environment poc2 -hubVnetEnabled true -spokeVnetEnabled false '
-        deploymentMode: 'Incremental'
-        deploymentName: 'DeployPipelineTemplate'
+  - stage: Deploy
+    jobs:
+      - job: Deploy
+        steps:
+          - task: AzureResourceManagerTemplateDeployment@3
+            inputs:
+              deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: '$(azureServiceConnection)'
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: '$(resourceGroupName)'
+              location: '$(location)'
+              templateLocation: 'Linked artifact'
+              csmFile: '$(templateFile)'
+              overrideParameters: '-environment poc2 -hubVnetEnabled true -spokeVnetEnabled false '
+              deploymentMode: 'Incremental'
+              deploymentName: 'DeployPipelineTemplate'
