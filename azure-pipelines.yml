@@ -10,6 +10,17 @@ variables:
   templateFile: './main.bicep'
 
 stages:
+
+- stage: Lint
+  jobs:
+  - job: LintCode
+    displayName: Lint code
+    steps:
+      - script: |
+          az bicep build --file '$(templateFile)'
+        name: LintBicepCode
+        displayName: Run Bicep linter
+  
   - stage: Validate
     jobs:
       - job: Validate
